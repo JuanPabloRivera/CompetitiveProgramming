@@ -1,0 +1,31 @@
+#ifdef LOCAL
+#include <iostream>
+#define debug(x) cerr<<"["<<#x<<"]: "<<x<<endl;
+#define EPS 0.0000001
+#else
+#include <bits/stdc++.h>
+#define debug(x) 42
+#define debug_c(a) 42
+#endif
+
+using namespace std;
+
+#include <vector>
+#include <string>
+
+int main(){
+    ios::sync_with_stdio(false);
+	cin.tie(0);
+
+    string line{};
+    vector<char> unique{}, ignore{'{', '}', ' ', ','};
+    getline(cin, line);
+
+    for(char &c: line){
+        if (find(ignore.begin(), ignore.end(), c) != ignore.end())
+            continue;
+        else if (find(unique.begin(), unique.end(), c) == unique.end())
+            unique.push_back(c);
+    }
+    cout << unique.size() << endl;
+}
