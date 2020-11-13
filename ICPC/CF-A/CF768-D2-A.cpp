@@ -18,39 +18,31 @@ int main(){
     ios::sync_with_stdio(false);
 	cin.tie(0);
 
-    int n{}, min{}, max{}, steward{}, equal_min{1}, equal_max{1}, count{}, preset[2] {};
+    int n{}, max{0}, equal_min{};
+    long long int min{10000000001};
     cin >> n;
+    int stewards[n] {};
 
-    if (n >= 2){
-        cin >> preset[0] >> preset[1];
-        if (preset[0] < preset[1]){
-            min = preset[0];
-            max = preset[1];
-        }
-        else{
-            min = preset[1];
-            max = preset[0];
-        }
-    }
+    for(int i{0}; i < n; i++){
+        cin >> stewards[i];
 
-    for(int i{0}; i < n-2; i++){
-        cin >> steward;
-        if ((steward > min) && (steward < max))
-            count++;
-        else if (steward == max)
-            equal_max++;
-        else if (steward == min)
+        if (stewards[i] < min){
+            min = stewards[i];
+            equal_min = 0;
+        }
+        if (stewards[i] > max)
+            max = stewards[i];
+        if (stewards[i] == min)
             equal_min++;
-        else if (steward < min){
-            min = steward;
-            count += equal_min;
-            equal_min = 1;
-        }
-        else if (steward > max){
-            max = steward;
-            count += equal_max;
-            equal_max = 1;
-        }
     }
+
+    sort(stewards, stewards+n);
+    auto itr = find(stewards, stewards+n, max);
+    int count = distance(stewards+equal_min, itr);
+
+    if (count < 0)
+        count = 0;
+
     cout << count << endl;
 }
+
